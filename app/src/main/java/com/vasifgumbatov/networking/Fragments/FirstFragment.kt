@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vasifgumbatov.networking.Api.ApiManager
 import com.vasifgumbatov.networking.Api.ApiService
 import com.vasifgumbatov.networking.Data.PostsResponse
@@ -27,7 +28,6 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -36,6 +36,7 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.recyclerView?.adapter = adapter
+        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         val client = Retrofit.Builder()
             .baseUrl("https://jsonplaceholder.typicode.com/")
@@ -52,7 +53,7 @@ class FirstFragment : Fragment() {
             }
 
             override fun onFailure(p0: Call<List<PostsResponse>>, th: Throwable) {
-                Log.d("fail", "onFailure: ${th.localizedMessage}")
+//                Log.d("fail", "onFailure: ${th.localizedMessage}")
             }
         })
 
